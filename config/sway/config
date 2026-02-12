@@ -220,6 +220,17 @@ bindsym $mod+r mode "resize"
     bindsym Print exec grim -g "$(slurp -d)"
 
 #
+# Theming:
+#
+# This was generated with https://thomashunter.name/i3-configurator/
+# class                 border  bground text    indicator child_border
+client.focused          #660C0C #6D0D0D #FFFFFF #6D0D0D   #660C0C
+client.focused_inactive #420808 #4A0909 #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #222222 #888888 #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -228,12 +239,17 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command while date +'%Y-%m-%d %X'\ \|\ $(cat /sys/class/power_supply/BAT0/capacity)%%\ ; do sleep 1; done
 
     colors {
         statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        background #00000077
+        
+        focused_workspace  #660C0C #6D0D0D #FFFFFF
+        active_workspace   #333333 #222222 #FFFFFF
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #2F343A #FF0000 #FFFFFF
+        binding_mode       #2F343A #C30000 #FFFFFF
     }
 
     tray_output none
