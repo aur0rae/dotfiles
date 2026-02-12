@@ -4,7 +4,7 @@
 
 sudo pacman -S --noconfirm sway swaybg swayidle swaylock wmenu brightnessctl foot dolphin \
                            ark mpv yt-dlp mpd ncmpcpp bat eza fzf zoxide kdenlive obs-studio \
-                           prismlauncher steam breeze breeze-gtk breeze-icons
+                           prismlauncher steam breeze
 
 cp -r config/* $HOME/.config/
 mkdir -p ~/.local/state/mpd/
