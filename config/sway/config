@@ -22,8 +22,6 @@ gaps inner 5
 
 # Autostart
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id /usr/lib/pam_kwallet_init 
-exec --no-startup-id /usr/bin/nm-applet
 exec /usr/bin/mullvad-vpn
 
 ### Output configuration
@@ -217,11 +215,17 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim -g "$(slurp -d)"
+    bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
 
 #
 # Theming:
 #
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Breeze-Dark'
+    gsettings set $gnome-schema icon-theme 'breeze-dark'
+}
+
 # This was generated with https://thomashunter.name/i3-configurator/
 # class                 border  bground text    indicator child_border
 client.focused          #660C0C #6D0D0D #FFFFFF #6D0D0D   #660C0C
@@ -239,7 +243,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'\ \|\ $(cat /sys/class/power_supply/BAT0/capacity)%%\ ; do sleep 1; done
+    status_command while ~/.config/sway/status.sh; do sleep 1; done
 
     colors {
         statusline #ffffff
@@ -251,8 +255,6 @@ bar {
         urgent_workspace   #2F343A #FF0000 #FFFFFF
         binding_mode       #2F343A #C30000 #FFFFFF
     }
-
-    tray_output none
 }
 
 include /etc/sway/config.d/*
